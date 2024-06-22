@@ -14,7 +14,8 @@ export class News extends Component {
       description:
         "Nintendo sidestepped sharing the spotlight with all the other gaming companies at Summer Game Fest last week, promising its own Direct later in June. And that happened yesterday, teasing a lot of new games with Nintendo favorites. Mario games, yes. Zelda game…",
       url: "https://consent.yahoo.com/v2/collectConsent?sessionId=1_cc-session_34b6b24a-08dd-4ee2-ad85-a3c15258d929",
-      urlToImage: null,
+      urlToImage:
+        "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Frealitypaper.com%2Fwp-content%2Fuploads%2F2020%2F08%2FCommon-Types-of-News-to-Explore.jpg&f=1&nofb=1&ipt=5f46f041897df3a9b4bed0da7f07810fe5db2c6754970ff28f863db3fa4a5fda&ipo=images",
       publishedAt: "2024-06-19T11:15:47Z",
       content:
         "If you click 'Accept all', we and our partners, including 237 who are part of the IAB Transparency &amp; Consent Framework, will also store and/or access information on a device (in other words, use … [+678 chars]",
@@ -227,7 +228,8 @@ export class News extends Component {
         "Jon Stewart Talks About His Split With Apple on Matthew Belloni’s ‘The Town’",
       description: null,
       url: "https://open.spotify.com/episode/6Uo3FUqfmv85jl1fx96q9H",
-      urlToImage: null,
+      urlToImage:
+        "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Frealitypaper.com%2Fwp-content%2Fuploads%2F2020%2F08%2FCommon-Types-of-News-to-Explore.jpg&f=1&nofb=1&ipt=5f46f041897df3a9b4bed0da7f07810fe5db2c6754970ff28f863db3fa4a5fda&ipo=images",
       publishedAt: "2024-06-19T01:31:11Z",
       content:
         "Interesting two-part interview, with far more information than we’ve heard about the demise of The Problem With Jon Stewart on Apple TV+. Part two is here; Overcast links to parts one and two; Apple … [+522 chars]",
@@ -242,7 +244,8 @@ export class News extends Component {
       description:
         "In a recent teardown of the Apple iPad Pro 11-inch, TechInsights revealed details of Apple's latest silicon: the Apple M4 SoC, codenamed TMRV93, built on TSMC's advanced N3E process. This surprise release demonstrates Apple's agility in adopting cutting-edge …",
       url: "https://www.techinsights.com/blog/introducing-tsmc-n3e-power-behind-apples-m4-soc",
-      urlToImage: null,
+      urlToImage:
+        "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Frealitypaper.com%2Fwp-content%2Fuploads%2F2020%2F08%2FCommon-Types-of-News-to-Explore.jpg&f=1&nofb=1&ipt=5f46f041897df3a9b4bed0da7f07810fe5db2c6754970ff28f863db3fa4a5fda&ipo=images",
       publishedAt: "2024-06-19T07:46:07Z",
       content:
         "In a recent teardown of the Apple iPad Pro 11-inch, TechInsights revealed details of Apple's latest silicon: the Apple M4 SoC, codenamed TMRV93, built on TSMC's advanced N3E process. This surprise re… [+1183 chars]",
@@ -1669,8 +1672,14 @@ export class News extends Component {
             return (
               <div className="col-md-4" key={element.url}>
                 <NewsItem
-                  title={element.title}
-                  description={element.description.slice(0, 88)}
+                  title={element.title.slice(0, 45)}
+                  description={
+                    element.description
+                      ? element.description.length > 120
+                        ? element.description.slice(0, 120) + "..."
+                        : element.description
+                      : ""
+                  }
                   imageUrl={element.urlToImage}
                   newsUrl={element.url}
                 />
