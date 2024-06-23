@@ -7,7 +7,7 @@ export class News extends Component {
     super();
     console.log("Hello I am a constructor from News Component");
 
-    this.state = { articles: this.articles, loading: false };
+    this.state = { articles: this.articles, loading: false, page: 1 };
   }
 
   componentDidMount = async () => {
