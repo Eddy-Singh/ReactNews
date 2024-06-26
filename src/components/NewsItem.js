@@ -16,7 +16,7 @@ export class NewsItem extends Component {
             <p className="card-text">{description}</p>
             <p className="card-text">
               <small class="text-body-secondary">
-                by {author} on {new Date(date).toUTCString()}
+                by {author} on {date}
               </small>
             </p>
 
