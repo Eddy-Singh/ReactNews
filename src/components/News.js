@@ -14,13 +14,12 @@ export class News extends Component {
     pageSize: PropTypes.number,
     category: PropTypes.string,
   };
-  articles = [];
   constructor() {
     super();
     console.log("Hello I am a constructor from News Component");
 
     this.state = {
-      articles: this.articles,
+      articles: [],
       loading: false,
       page: 1,
       totalResults: 0,
@@ -88,28 +87,31 @@ export class News extends Component {
         {this.state.loading && <Spinner />}
         <h2>ReactNews- Top Headlines</h2>
         <div className="row">
-          {this.state.articles.map((element) => {
-            return (
-              <div className="col-md-4" key={element.url}>
-                <NewsItem
-                  title={element.title ? element.title.slice(0, 45) : ""}
-                  description={
-                    element.description
-                      ? element.description.length > 120
-                        ? element.description.slice(0, 120) + "..."
-                        : element.description
-                      : ""
-                  }
-                  imageUrl={
-                    element.urlToImage
-                      ? element.urlToImage
-                      : "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Frealitypaper.com%2Fwp-content%2Fuploads%2F2020%2F08%2FCommon-Types-of-News-to-Explore.jpg&f=1&nofb=1&ipt=5f46f041897df3a9b4bed0da7f07810fe5db2c6754970ff28f863db3fa4a5fda&ipo=images"
-                  }
-                  newsUrl={element.url}
-                />
-              </div>
-            );
-          })}
+          {Array.isArray(this.state.articles) &&
+            this.state.articles.map((element) => {
+              return (
+                <div className="col-md-4" key={element.url}>
+                  <NewsItem
+                    title={element.title ? element.title.slice(0, 45) : ""}
+                    description={
+                      element.description
+                        ? element.description.length > 120
+                          ? element.description.slice(0, 120) + "..."
+                          : element.description
+                        : ""
+                    }
+                    imageUrl={
+                      element.urlToImage
+                        ? element.urlToImage
+                        : "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Frealitypaper.com%2Fwp-content%2Fuploads%2F2020%2F08%2FCommon-Types-of-News-to-Explore.jpg&f=1&nofb=1&ipt=5f46f041897df3a9b4bed0da7f07810fe5db2c6754970ff28f863db3fa4a5fda&ipo=images"
+                    }
+                    newsUrl={element.url}
+                    author={element.author ? element.author : "Unknown"}
+                    date={element.publishedAt ? element.publishedAt : "Unknown"}
+                  />
+                </div>
+              );
+            })}
         </div>
         <div className="container d-flex justify-content-between">
           <button
