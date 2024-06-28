@@ -25,11 +25,10 @@ export class News extends Component {
       totalResults: 0,
     };
   }
-
-  componentDidMount = async () => {
+  async updateNews() {
     console.log("Component Did Mount");
     this.setState({ loading: true });
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=1009d5eaee264c65a90cc70db1ac975b&page=1&pageSize=${this.props.pageSize}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=1009d5eaee264c65a90cc70db1ac975b&page=${this.state.page}&pageSize=${this.props.pageSize}`;
     let response = await fetch(url);
     let data = await response.json();
     this.setState({
@@ -37,48 +36,66 @@ export class News extends Component {
       totalResults: data.totalResults,
       loading: false,
     });
+  }
+
+  componentDidMount = async () => {
+    // console.log("Component Did Mount");
+    // this.setState({ loading: true });
+    // let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=1009d5eaee264c65a90cc70db1ac975b&page=1&pageSize=${this.props.pageSize}`;
+    // let response = await fetch(url);
+    // let data = await response.json();
+    // this.setState({
+    //   articles: data.articles,
+    //   totalResults: data.totalResults,
+    //   loading: false,
+    // });
+    this.updateNews();
   };
 
   handlePrev = async () => {
-    this.setState({ loading: true });
-    let url = `https://newsapi.org/v2/top-headlines?country=${
-      this.props.country
-    }&category=${
-      this.props.category
-    }&apiKey=1009d5eaee264c65a90cc70db1ac975b&page=${
-      this.state.page - 1
-    }&pageSize=${this.props.pageSize}`;
-    let response = await fetch(url);
-    let data = await response.json();
-    this.setState({
-      articles: data.articles,
-      page: this.state.page - 1,
-      loading: false,
-    });
+    // this.setState({ loading: true });
+    // let url = `https://newsapi.org/v2/top-headlines?country=${
+    //   this.props.country
+    // }&category=${
+    //   this.props.category
+    // }&apiKey=1009d5eaee264c65a90cc70db1ac975b&page=${
+    //   this.state.page - 1
+    // }&pageSize=${this.props.pageSize}`;
+    // let response = await fetch(url);
+    // let data = await response.json();
+    // this.setState({
+    //   articles: data.articles,
+    //   page: this.state.page - 1,
+    //   loading: false,
+    // });
+    this.setState({ page: this.state.page - 1 });
+    this.updateNews();
   };
   handleNext = async () => {
-    if (
-      !(
-        this.state.page + 1 >
-        Math.ceil(this.state.totalResults / this.props.pageSize)
-      )
-    ) {
-      this.setState({ loading: true });
-      let url = `https://newsapi.org/v2/top-headlines?country=${
-        this.props.country
-      }&category=${
-        this.props.category
-      }&apiKey=1009d5eaee264c65a90cc70db1ac975b&page=${
-        this.state.page + 1
-      }&pageSize=${this.props.pageSize}`;
-      let response = await fetch(url);
-      let data = await response.json();
-      this.setState({
-        articles: data.articles,
-        page: this.state.page + 1,
-        loading: false,
-      });
-    }
+    // if (
+    //   !(
+    //     this.state.page + 1 >
+    //     Math.ceil(this.state.totalResults / this.props.pageSize)
+    //   )
+    // ) {
+    //   this.setState({ loading: true });
+    //   let url = `https://newsapi.org/v2/top-headlines?country=${
+    //     this.props.country
+    //   }&category=${
+    //     this.props.category
+    //   }&apiKey=1009d5eaee264c65a90cc70db1ac975b&page=${
+    //     this.state.page + 1
+    //   }&pageSize=${this.props.pageSize}`;
+    //   let response = await fetch(url);
+    //   let data = await response.json();
+    //   this.setState({
+    //     articles: data.articles,
+    //     page: this.state.page + 1,
+    //     loading: false,
+    //   });
+    // }
+    this.setState({ page: this.state.page + 1 });
+    this.updateNews();
   };
 
   render() {
