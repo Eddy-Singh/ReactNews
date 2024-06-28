@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import NewsItem from "./NewsItem";
 import Spinner from "./Spinner";
 import PropTypes from "prop-types";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 export class News extends Component {
   static defaultProps = {
@@ -20,7 +21,7 @@ export class News extends Component {
 
     this.state = {
       articles: [],
-      loading: false,
+      loading: true,
       page: 1,
       totalResults: 0,
     };
@@ -38,6 +39,17 @@ export class News extends Component {
       loading: false,
     });
   }
+  fetchMoreData = async () => {
+    this.setState({ page: this.state.page + 1 });
+    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=1009d5eaee264c65a90cc70db1ac975b&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+    let response = await fetch(url);
+    let data = await response.json();
+    this.setState({
+      articles: this.state.articles.concat(data.articles),
+      totalResults: data.totalResults,
+      loading: false,
+    });
+  };
 
   componentDidMount = async () => {
     // console.log("Component Did Mount");
@@ -101,38 +113,58 @@ export class News extends Component {
 
   render() {
     return (
-      <div className="container my-3">
+      <>
         {this.state.loading && <Spinner />}
-        <h2>ReactNews- Top {this.props.category} Headlines</h2>
-        <div className="row">
-          {!this.state.loading &&
-            this.state.articles.map((element) => {
-              return (
-                <div className="col-md-4" key={element.url}>
-                  <NewsItem
-                    title={element.title ? element.title.slice(0, 45) : ""}
-                    description={
-                      element.description
-                        ? element.description.length > 120
-                          ? element.description.slice(0, 120) + "..."
-                          : element.description
-                        : ""
-                    }
-                    imageUrl={
-                      element.urlToImage
-                        ? element.urlToImage
-                        : "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Frealitypaper.com%2Fwp-content%2Fuploads%2F2020%2F08%2FCommon-Types-of-News-to-Explore.jpg&f=1&nofb=1&ipt=5f46f041897df3a9b4bed0da7f07810fe5db2c6754970ff28f863db3fa4a5fda&ipo=images"
-                    }
-                    newsUrl={element.url}
-                    author={element.author ? element.author : "Unknown"}
-                    date={element.publishedAt ? element.publishedAt : "Unknown"}
-                    source={element.source.name}
-                  />
-                </div>
-              );
-            })}
-        </div>
-        <div className="container d-flex justify-content-between">
+        <h2 style={{ marginLeft: "120px" }}>
+          ReactNews - Top {this.props.category} Headlines
+        </h2>{" "}
+        <InfiniteScroll
+          dataLength={this.state.articles.length}
+          next={this.fetchMoreData}
+          hasMore={this.state.articles.length !== this.state.totalResults}
+          loader={<Spinner />}
+        >
+          <div className="container">
+            <div className="row">
+              {
+                /* {!this.state.loading && }*/
+                Array.isArray(this.state.articles) &&
+                  this.state.articles.map((element) => {
+                    return (
+                      <div className="col-md-4" key={element.url}>
+                        <NewsItem
+                          title={
+                            element.title ? element.title.slice(0, 45) : ""
+                          }
+                          description={
+                            element.description
+                              ? element.description.length > 120
+                                ? element.description.slice(0, 120) + "..."
+                                : element.description
+                              : ""
+                          }
+                          imageUrl={
+                            element.urlToImage
+                              ? element.urlToImage
+                              : "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Frealitypaper.com%2Fwp-content%2Fuploads%2F2020%2F08%2FCommon-Types-of-News-to-Explore.jpg&f=1&nofb=1&ipt=5f46f041897df3a9b4bed0da7f07810fe5db2c6754970ff28f863db3fa4a5fda&ipo=images"
+                          }
+                          newsUrl={element.url}
+                          author={element.author ? element.author : "Unknown"}
+                          date={
+                            element.publishedAt
+                              ? element.publishedAt
+                              : "Unknown"
+                          }
+                          source={element.source.name}
+                        />
+                      </div>
+                    );
+                  })
+              }
+            </div>
+          </div>
+        </InfiniteScroll>
+        {/* <div className="container d-flex justify-content-between">
           <button
             type="button"
             className="btn btn-dark"
@@ -152,8 +184,8 @@ export class News extends Component {
           >
             Next <span>&#8594;</span>
           </button>
-        </div>
-      </div>
+        </div> */}
+      </>
     );
   }
 } //1009d5eaee264c65a90cc70db1ac975b
