@@ -14,8 +14,8 @@ export class News extends Component {
     pageSize: PropTypes.number,
     category: PropTypes.string,
   };
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     console.log("Hello I am a constructor from News Component");
 
     this.state = {
@@ -24,6 +24,7 @@ export class News extends Component {
       page: 1,
       totalResults: 0,
     };
+    document.title = `${this.props.category}- ReactNews`;
   }
   async updateNews() {
     console.log("Component Did Mount");
@@ -102,9 +103,9 @@ export class News extends Component {
     return (
       <div className="container my-3">
         {this.state.loading && <Spinner />}
-        <h2>ReactNews- Top Headlines</h2>
+        <h2>ReactNews- Top {this.props.category} Headlines</h2>
         <div className="row">
-          {Array.isArray(this.state.articles) &&
+          {!this.state.loading &&
             this.state.articles.map((element) => {
               return (
                 <div className="col-md-4" key={element.url}>
