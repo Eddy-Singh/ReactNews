@@ -108,6 +108,7 @@ export class News extends Component {
                     newsUrl={element.url}
                     author={element.author ? element.author : "Unknown"}
                     date={element.publishedAt ? element.publishedAt : "Unknown"}
+                    source={element.source.name}
                   />
                 </div>
               );

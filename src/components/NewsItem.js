@@ -2,7 +2,8 @@ import React, { Component } from "react";
 
 export class NewsItem extends Component {
   render() {
-    let { title, description, imageUrl, newsUrl, author, date } = this.props;
+    let { title, description, imageUrl, newsUrl, author, date, source } =
+      this.props;
     return (
       <div className="my-3">
         <div className="card">
@@ -12,7 +13,18 @@ export class NewsItem extends Component {
             alt="..."
           />
           <div className="card-body">
-            <h5 className="card-title">{title}</h5>
+            <h5 className="card-title">
+              {title}{" "}
+              <span
+                className="position-absolute top-0 start-100 badge rounded-pill bg-danger"
+                style={{
+                  transform: "translateX(-100%) translateY(-50%)",
+                  zIndex: 1,
+                }}
+              >
+                {source}
+              </span>
+            </h5>
             <p className="card-text">{description}</p>
             <p className="card-text">
               <small class="text-body-secondary">
