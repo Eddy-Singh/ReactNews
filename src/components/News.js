@@ -191,6 +191,6 @@ export class News extends Component {
       </>
     );
   }
-} //1009d5eaee264c65a90cc70db1ac975b
+}
 
 export default News;
