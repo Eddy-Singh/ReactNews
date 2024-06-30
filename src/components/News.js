@@ -8,7 +8,6 @@ const News = (props) => {
   const [loading, setLoading] = useState(true);
   const [pages, setPages] = useState(1);
   const [totalResults, setTotalResults] = useState(0);
-  // document.title = `${props.category}- ReactNews`;
 
   const updateNews = async () => {
     props.setProgress(10);
@@ -25,8 +24,12 @@ const News = (props) => {
     props.setProgress(100);
   };
   const fetchMoreData = async () => {
+    let url = `https://newsapi.org/v2/top-headlines?country=${
+      props.country
+    }&category=${props.category}&apiKey=${props.apiKey}&page=${
+      pages + 1
+    }&pageSize=${props.pageSize}`;
     setPages(pages + 1);
-    let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}&page=${props.page}&pageSize=${props.pageSize}`;
     let response = await fetch(url);
     let data = await response.json();
     setArticles(articles.concat(data.articles));
@@ -34,7 +37,10 @@ const News = (props) => {
     setLoading(false);
   };
   useEffect(() => {
+    document.title = `${props.category}- ReactNews`;
+
     updateNews();
+    //eslint-disable-next-line
   }, []);
 
   // componentDidMount = async () => {
@@ -99,7 +105,7 @@ const News = (props) => {
   return (
     <>
       {loading && <Spinner />}
-      <h2 style={{ marginLeft: "120px" }}>
+      <h2 style={{ textAlign: "center", marginTop: "60px" }}>
         ReactNews - Top {props.category} Headlines
       </h2>{" "}
       <InfiniteScroll
