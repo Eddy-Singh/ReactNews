@@ -9,8 +9,6 @@ const News = (props) => {
   const [pages, setPages] = useState(1);
   const [totalResults, setTotalResults] = useState(0);
 
-  //testing git commit
-
   const updateNews = async () => {
     props.setProgress(10);
     setLoading(true);
@@ -19,8 +17,8 @@ const News = (props) => {
     props.setProgress(30);
     let data = await response.json();
     props.setProgress(70);
-    setArticles(data.articles);
-    setTotalResults(data.totalResults);
+    setArticles(data.articles || []);
+    setTotalResults(data.totalResults || 0);
     setLoading(false);
 
     props.setProgress(100);
@@ -34,8 +32,8 @@ const News = (props) => {
     setPages(pages + 1);
     let response = await fetch(url);
     let data = await response.json();
-    setArticles(articles.concat(data.articles));
-    setTotalResults(data.totalResults);
+    setArticles(articles.concat(data.articles || []));
+    setTotalResults(data.totalResults || 0);
     setLoading(false);
   };
   useEffect(() => {
@@ -177,11 +175,11 @@ const News = (props) => {
   );
 };
 
-News.defaultProps = {
-  country: "in",
-  pageSize: 8,
-  category: "general",
-};
+// News.defaultProps = {
+//   country: "in",
+//   pageSize: 8,
+//   category: "general",
+// };
 News.propTypes = {
   country: PropTypes.string,
   pageSize: PropTypes.number,

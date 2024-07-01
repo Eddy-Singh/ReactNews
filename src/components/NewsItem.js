@@ -24,7 +24,7 @@ const NewsItem = (props) => {
           </h5>
           <p className="card-text">{description}</p>
           <p className="card-text">
-            <small class="text-body-secondary">
+            <small className="text-body-secondary">
               by {author} on {new Date(date).toUTCString()}
             </small>
           </p>
