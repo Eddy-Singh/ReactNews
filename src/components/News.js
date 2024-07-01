@@ -9,6 +9,8 @@ const News = (props) => {
   const [pages, setPages] = useState(1);
   const [totalResults, setTotalResults] = useState(0);
 
+  //testing git commit
+
   const updateNews = async () => {
     props.setProgress(10);
     setLoading(true);
