@@ -25,7 +25,7 @@ const App = () => {
                 apiKey={apiKey}
                 key="home"
                 pageSize={pageSize}
-                country="in"
+                country="us"
                 category="general"
               />
             }
@@ -39,7 +39,7 @@ const App = () => {
                 apiKey={apiKey}
                 key="business"
                 pageSize={pageSize}
-                country="in"
+                country="us"
                 category="Business"
               />
             }
@@ -53,7 +53,7 @@ const App = () => {
                 apiKey={apiKey}
                 key="entertainment"
                 pageSize={pageSize}
-                country="in"
+                country="us"
                 category="Entertainment"
               />
             }
@@ -67,7 +67,7 @@ const App = () => {
                 apiKey={apiKey}
                 key="general"
                 pageSize={pageSize}
-                country="in"
+                country="us"
                 category="General"
               />
             }
@@ -81,7 +81,7 @@ const App = () => {
                 apiKey={apiKey}
                 key="health"
                 pageSize={pageSize}
-                country="in"
+                country="us"
                 category="Health"
               />
             }
@@ -95,7 +95,7 @@ const App = () => {
                 apiKey={apiKey}
                 key="science"
                 pageSize={pageSize}
-                country="in"
+                country="us"
                 category="Science"
               />
             }
@@ -109,7 +109,7 @@ const App = () => {
                 apiKey={apiKey}
                 key="sports"
                 pageSize={pageSize}
-                country="in"
+                country="us"
                 category="Sports"
               />
             }
@@ -123,7 +123,7 @@ const App = () => {
                 apiKey={apiKey}
                 key="technology"
                 pageSize={pageSize}
-                country="in"
+                country="us"
                 category="Technology"
               />
             }
